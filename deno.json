@@ -1,0 +1,22 @@
+{
+  "name": "random-blog-backend",
+  "version": "0.1.0",
+  "imports": {
+    "@oak/oak/": "jsr:@oak/oak@17.2.0/"
+  },
+  "unstable": ["kv"],
+  "tasks": {
+    "dev": "deno run -A --watch=src src/main.ts",
+    "start": "deno run -A src/main.ts",
+    "check": "deno check src/main.ts",
+    "fmt": "deno fmt",
+    "lint": "deno lint"
+  },
+  "compilerOptions": {
+    "strict": true
+  },
+  "deploy": {
+    "org": "grancharovstoyan",
+    "app": "randomblog"
+  }
+}
