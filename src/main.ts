@@ -19,5 +19,6 @@ const deleteBlog = new DeleteBlog(repo);
 
 const app = createServer({ listBlogs, getBlogBySlug, createBlog, deleteBlog });
 
+// Start the server
 console.log(`✅ RandomBlog API running on http://localhost:${PORT}`);
 await app.listen({ port: PORT });
