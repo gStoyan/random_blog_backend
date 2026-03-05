@@ -21,7 +21,6 @@ export class KvBlogRepository implements IBlogRepository {
     const q = query?.q?.trim().toLowerCase();
 
     const blogs: Blog[] = [];
-
     // Lists all keys starting with ["blogs"] :contentReference[oaicite:3]{index=3}
     for await (const entry of this.kv.list<StoredBlog>({ prefix: ["blogs"] })) {
       const v = entry.value;
