@@ -4,8 +4,10 @@ import type { CreateBlog } from "../../application/blog/usecases/CreateBlog.ts";
 import type { DeleteBlog } from "../../application/blog/usecases/DeleteBlog.ts";
 import type { GetBlogBySlug } from "../../application/blog/usecases/GetBlogBySlug.ts";
 import type { ListBlogs } from "../../application/blog/usecases/ListBlogs.ts";
+import type { RegisterUser } from "../../application/user/usecases/RegisterUser.ts";
 import { cors } from "./middlewares/cors.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
+import { authRoutes } from "./routes/authRoutes.ts";
 import { blogRoutes } from "./routes/blogRoutes.ts";
 
 export function createServer(deps: {
@@ -13,6 +15,7 @@ export function createServer(deps: {
   getBlogBySlug: GetBlogBySlug;
   createBlog: CreateBlog;
   deleteBlog: DeleteBlog;
+  registerUser: RegisterUser;
 }) {
   const app = new Application();
 
@@ -26,12 +29,16 @@ export function createServer(deps: {
   });
 
   const blogs = blogRoutes(deps);
+  const auth = authRoutes(deps);
 
   app.use(root.routes());
   app.use(root.allowedMethods());
 
   app.use(blogs.routes());
   app.use(blogs.allowedMethods());
+
+  app.use(auth.routes());
+  app.use(auth.allowedMethods());
 
   return app;
 }
