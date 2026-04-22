@@ -5,6 +5,8 @@ import type { DeleteBlog } from "../../application/blog/usecases/DeleteBlog.ts";
 import type { GetBlogBySlug } from "../../application/blog/usecases/GetBlogBySlug.ts";
 import type { ListBlogs } from "../../application/blog/usecases/ListBlogs.ts";
 import type { RegisterUser } from "../../application/user/usecases/RegisterUser.ts";
+import type { LoginUser } from "../../application/user/usecases/LoginUser.ts";
+import type { IJwtService } from "../../domain/user/IJwtService.ts";
 import { cors } from "./middlewares/cors.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
 import { authRoutes } from "./routes/authRoutes.ts";
@@ -16,6 +18,8 @@ export function createServer(deps: {
   createBlog: CreateBlog;
   deleteBlog: DeleteBlog;
   registerUser: RegisterUser;
+  loginUser: LoginUser;
+  jwtService: IJwtService;
 }) {
   const app = new Application();
 
