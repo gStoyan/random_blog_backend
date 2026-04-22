@@ -6,6 +6,7 @@ export interface BlogProps {
   slug: string;
   content: string;
   tags: string[];
+  imageUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,6 +24,7 @@ export class Blog {
     title: string;
     content: string;
     tags?: string[];
+    imageUrl?: string;
     now?: Date;
   }): Blog {
     const now = input.now ?? new Date();
@@ -39,12 +41,18 @@ export class Blog {
       slug,
       content,
       tags: (input.tags ?? []).map((t) => t.trim()).filter(Boolean),
+      imageUrl: input.imageUrl,
       createdAt: now,
       updatedAt: now,
     });
   }
 
-  update(input: { title?: string; content?: string; tags?: string[]; now?: Date }): Blog {
+  update(input: {
+    title?: string;
+    content?: string;
+    tags?: string[];
+    now?: Date;
+  }): Blog {
     const now = input.now ?? new Date();
     const title = (input.title ?? this.props.title).trim();
     if (!title) throw new Error("Title is required.");
@@ -56,7 +64,9 @@ export class Blog {
       title,
       slug: Blog.slugify(title),
       content,
-      tags: (input.tags ?? this.props.tags).map((t) => t.trim()).filter(Boolean),
+      tags: (input.tags ?? this.props.tags)
+        .map((t) => t.trim())
+        .filter(Boolean),
       updatedAt: now,
     });
   }

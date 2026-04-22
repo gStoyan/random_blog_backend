@@ -15,10 +15,12 @@ export class CreateBlog {
         title: input.title,
         content: input.content,
         tags: input.tags ?? [],
+        imageUrl: input.imageUrl,
       });
 
       const existing = await this.repo.findBySlug(blog.slug);
-      if (existing) return Err("A blog with this slug already exists (try another title).");
+      if (existing)
+        return Err("A blog with this slug already exists (try another title).");
 
       await this.repo.create(blog);
       return Ok(toBlogDTO(blog));
